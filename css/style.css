@@ -1,0 +1,58 @@
+body {
+  box-sizing: border-box;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #180B04;
+  font-family: 'Roboto', sans-serif;
+  font-size: small;
+  color: cadetblue;
+}
+
+.header {
+  text-align: center;
+  background-color: #D3DCE3;
+  font-size: larger;
+}
+.section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #251709;
+}
+
+.toprow, .row_item{
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+}
+
+.cell {
+  border: 1px solid #251709;
+  text-align: center;
+}
+
+.title {
+  text-align: left;
+}
+
+.htitle, .title {
+  min-width: 420px;
+}
+
+.hpremiere, .premiere {
+  min-width: 110px;
+}
+
+.hcountry, .country {
+  min-width: 180px;
+}
+
+.himages, .images {
+  min-width: 160px;
+  justify-content: center;
+  float: left;
+}
+
+.hgenre, .genre {
+  min-width: 180px;
+}

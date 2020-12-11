@@ -1,24 +1,5 @@
 <?php
-  $db_host = 'localhost';
-  $db_name = 'kinopoisk';
-  $db_charset='utf8';
-  $db_user = 'kinopoisk';
-  $db_password = 'eTx1234';
-
-  try {
-    $db = new PDO("mysql:host=$db_host;dbname=$db_name;charset=$db_charset", $db_user, $db_password);
-  } catch (PDOException $e) {
-      print "Error!: " . $e->getMessage();
-      die();
-    }
-  // var_dump($db);
-  $films = $db->query(" SELECT f.title, f.premiere, c.country, f.images, g.genre_name
-                        FROM films AS f, dic_country AS c, dic_genre AS g
-                        WHERE f.country_id = c.id AND f.genre_id = g.id");
-  // while($row = $films->fetch(PDO::FETCH_LAZY))
-  // {
-  //   print_r($row);
-  // }
+  require_once("db/db.php")
 ?>
 
 <!DOCTYPE html>
@@ -36,9 +17,10 @@
 <body>
     <header class="container header">
         <h1>Мой кинопоиск</h1>
+        <?php echo(md5('shfghfdghasgdhtsggshtr'));?>
     </header>
     <div class="container section">
-        <?php while($row = $films->fetch(PDO::FETCH_LAZY)) { ?>
+        <?php while($row = $films->fetch(PDO::FETCH_ASSOC)) { //debug($row);?>
         <div class="card mb-3" style="max-width: 1200px;">
         <div class="row g-0">
             <div class="col-md-4">

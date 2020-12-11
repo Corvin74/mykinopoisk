@@ -38,20 +38,21 @@
         <h1>Мой кинопоиск</h1>
     </header>
     <div class="container section">
-        <div class="toprow">
-            <div class="cell htitle">Название</div>
-            <div class="cell hpremiere">Примьера</div>
-            <div class="cell hcountry">Страна</div>
-            <div class="cell himages">Постер</div>
-            <div class="cell hgenre">Жанр</div>
-        </div>
         <?php while($row = $films->fetch(PDO::FETCH_LAZY)) { ?>
-        <div class="row_item">
-            <div class="cell title"><?php echo $row['title'];?></div>
-            <div class="cell premiere"><?php echo $row['premiere'];?></div>
-            <div class="cell country"><?php echo $row['country'];?></div>
-            <div class="cell images"><img width=150px src="img/<?php echo $row['images'];?>" alt=""></div>
-            <div class="cell genre"><?php echo $row['genre_name'];?></div>
+        <div class="card mb-3" style="max-width: 1200px;">
+        <div class="row g-0">
+            <div class="col-md-4">
+            <img src="img/<?php echo $row['images'];?>" alt="...">
+            </div>
+            <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title"><?php echo $row['title'];?></h5>
+                <p class="card-text"><?php echo $row['premiere'];?></p>
+                <p class="card-text"><?php echo $row['country'];?></p>
+                <p class="card-text"><small class="text-muted"><?php echo $row['genre_name'];?></small></p>
+            </div>
+            </div>
+        </div>
         </div>
         <?php };?>
     </div>

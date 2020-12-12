@@ -1,5 +1,6 @@
 <?php
-  require_once("db/db.php")
+  include("tools.php");
+  include("db/db.php");
 ?>
 
 <!DOCTYPE html>
@@ -17,8 +18,39 @@
 <body>
     <header class="container header">
         <h1>Мой кинопоиск</h1>
-        <?php echo(md5('shfghfdghasgdhtsggshtr'));?>
     </header>
+    <?php
+	  if (!(empty($_POST)) AND ( isset($_POST['authorize']) OR isset($_POST['register']) ) ) {
+	  	if ( isset( $_POST['authorize'] ) ) {
+	  	  header('Location: /login.php');
+	  	}
+	  	if ( isset( $_POST['register'] ) ) {
+          header('Location: /register.php');
+	  	}
+	  }
+	  if(empty($_SESSION['logged_in']) AND empty($_POST)){
+		  echo('
+			<div class="container">
+			<div class="loginButton">
+			  <form method="post">
+				<button type="submit" class="btn btn-info header-btn" name="register" value="yes">Регистрация</button>
+				<button type="submit" class="btn btn-success header-btn" name="authorize" value="yes">Авторизоваться</button>
+			  </form>
+			</div>
+			</div>
+		  ' );
+	  }
+	  if(isset($_POST['userName']) && isset($_POST['userPassword'])) {
+	  	$_SESSION['login'] = $_POST['userName'];
+	  	$_SESSION['password'] = $_POST['userPassword'];
+	  }
+	  if(isset($_SESSION['login']) && isset($_SESSION['password'])) {
+	  	if(login($db, $_SESSION['login'], $_SESSION['password'])) {//Попытка авторизации
+              $_SESSION['authorize'] = 1;
+              $_SESSION['logged_in'] = 1;
+	  	}
+	  }
+  ?>
     <div class="container section">
         <?php while($row = $films->fetch(PDO::FETCH_ASSOC)) { //debug($row);?>
         <div class="card mb-3" style="max-width: 1200px;">
@@ -26,12 +58,21 @@
             <div class="col-md-4">
             <img src="img/<?php echo $row['images'];?>" alt="...">
             </div>
-            <div class="col-md-8">
+            <div class="col-md-5">
             <div class="card-body">
                 <h5 class="card-title"><?php echo $row['title'];?></h5>
                 <p class="card-text"><?php echo $row['premiere'];?></p>
                 <p class="card-text"><?php echo $row['country'];?></p>
                 <p class="card-text"><small class="text-muted"><?php echo $row['genre_name'];?></small></p>
+                <?php if ($_SESSION['authorize'] == 1){?>
+                <p class="card-text">
+                    <form method="post">
+                    <button class="btn btn-primary" name="action" value="add">Add</button>
+                    <button class="btn btn-primary" name="action" value="edit">Edit</button>
+                    <button class="btn btn-primary" name="action" value="delete">Delete</button>
+                    </form>
+                </p>
+                <?php }; // endif?>
             </div>
             </div>
         </div>

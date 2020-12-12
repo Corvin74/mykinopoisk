@@ -20,6 +20,28 @@
         <h1>Мой кинопоиск</h1>
     </header>
     <?php
+      if (isset($_POST['action'])) {
+          switch ($_POST['action']) {
+            case 'add':
+                $_SESSION['authorize'] = 1;
+                header('Location: /add_film.php');
+            break;
+            
+            case 'edit':
+                $_SESSION['authorize'] = 1;
+                echo("EDIT");
+            break;
+            
+            case 'delete':
+                $_SESSION['authorize'] = 1;
+                echo("DELETE");
+            break;
+                
+            default:
+                # code...
+            break;
+          }
+      }
 	  if (!(empty($_POST)) AND ( isset($_POST['authorize']) OR isset($_POST['register']) ) ) {
 	  	if ( isset( $_POST['authorize'] ) ) {
 	  	  header('Location: /login.php');
@@ -64,9 +86,10 @@
                 <p class="card-text"><?php echo $row['premiere'];?></p>
                 <p class="card-text"><?php echo $row['country'];?></p>
                 <p class="card-text"><small class="text-muted"><?php echo $row['genre_name'];?></small></p>
-                <?php if ($_SESSION['authorize'] == 1){?>
+                <?php if (isset($_SESSION['authorize'])){?>
                 <p class="card-text">
                     <form method="post">
+                        <?php $_SESSION['authorize'] == 1;?>
                     <button class="btn btn-primary" name="action" value="add">Add</button>
                     <button class="btn btn-primary" name="action" value="edit">Edit</button>
                     <button class="btn btn-primary" name="action" value="delete">Delete</button>

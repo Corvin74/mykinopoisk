@@ -56,3 +56,24 @@ body {
 .hgenre, .genre {
   min-width: 180px;
 }
+
+.select-action {
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.add_film {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.card-body {
+  padding-left: 110px;
+}
+
+.btn-films{
+  min-width: 110px;
+  margin-top: 20px;
+}

@@ -44,10 +44,12 @@
       }
 	  if (!(empty($_POST)) AND ( isset($_POST['authorize']) OR isset($_POST['register']) ) ) {
 	  	if ( isset( $_POST['authorize'] ) ) {
-	  	  header('Location: /login.php');
+        echo '<meta http-equiv="refresh" content="0;URL=/login.php">';
 	  	}
 	  	if ( isset( $_POST['register'] ) ) {
-          header('Location: /register.php');
+          // <meta http-equiv="refresh" content="SECONDS;URL=REDIRECT_URL">
+          echo '<meta http-equiv="refresh" content="0;URL=/register.php">';
+          // header('Location: /register.php');
 	  	}
 	  }
 	  if(empty($_SESSION['logged_in']) AND empty($_POST)){

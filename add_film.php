@@ -24,7 +24,7 @@
         <div class="card mb-3" style="max-width: 840px;">
           <div class="row g-0">
             <div class="col-md-3">
-              <img width="250" src="img/Chernobyl.jpg" alt="...">
+              <img class="film_img" max-width="280" src="img/Chernobyl.jpg" alt="Poster" name="film_img" id="film_img">
             </div>
             <div class="col-md-9">
               <div class="card-body">

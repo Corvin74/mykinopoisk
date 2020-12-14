@@ -23,7 +23,7 @@
         'userPassword' => $password,
         'isAdmin' => 1,
     ]);
-    $loginResult = $db->prepare( 'SELECT * FROM users WHERE login = :loginName AND password = :userPassword AND admin = :isAdmin' );
+    $loginResult = $db->prepare( 'SELECT * FROM dic_users WHERE user_login = :loginName AND user_password = :userPassword AND is_admin = :isAdmin' );
     $loginResult->execute( $params );
     // $queryResult = $loginResult->fetch(PDO::FETCH_ASSOC);
     $queryResult = $loginResult->rowCount();

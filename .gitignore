@@ -1,3 +1,7 @@
 img/iloveimg-converted.zip
 .idea/
 .vscode/
+.buildpath
+.project
+.settings/
+

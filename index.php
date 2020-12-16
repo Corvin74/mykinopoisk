@@ -23,24 +23,37 @@
       if (isset($_POST['action'])) {
           switch ($_POST['action']) {
             case 'add':
+                echo '<meta http-equiv="refresh" content="0;URL=/add_film.php">';
                 $_SESSION['authorize'] = 1;
-                header('Location: /add_film.php');
             break;
             
             case 'edit':
+            	$redirect = "<meta http-equiv='refresh' content='0;URL=/edit_film.php?film=" . $_POST["filmID"] ."'>";
+            	debugx($redirect);
+            	echo $redirect; 
                 $_SESSION['authorize'] = 1;
-                echo("EDIT");
             break;
             
             case 'delete':
                 $_SESSION['authorize'] = 1;
-                echo("DELETE");
+                echo('DELETE RECORD ID = ' . $_POST["filmID"]);
             break;
                 
             default:
                 # code...
             break;
           }
+      }
+      if (isset($_POST['filmAdd'])) {
+      	$prepareParams = [
+      			"title" => $_POST["filmTitle"],
+      			"premiere" => $_POST["filmDate"],
+      			"country_id" => $_POST["filmCountry"],
+      			"images" => $_FILES["filmPoster"]["name"],
+      			"genre_id" => $_POST["filmGenre"],
+      	];
+      	checkUploadFile();
+        addFilm($db, $prepareParams);
       }
 	  if (!(empty($_POST)) AND ( isset($_POST['authorize']) OR isset($_POST['register']) ) ) {
 	  	if ( isset( $_POST['authorize'] ) ) {
@@ -91,9 +104,9 @@
                 <?php if (isset($_SESSION['authorize'])){?>
                 <p class="card-text">
                     <form method="post">
-                        <?php $_SESSION['authorize'] == 1;?>
+                    <input type="hidden" id="filmID" name="filmID" value="<?php echo $row['id'];?>">
                     <button class="btn btn-primary" name="action" value="add">Add</button>
-                    <button class="btn btn-primary" name="action" value="edit">Edit</button>
+                    <button type="submit" class="btn btn-primary" name="action" value="edit">Edit</button>
                     <button class="btn btn-primary" name="action" value="delete">Delete</button>
                     </form>
                 </p>

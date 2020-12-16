@@ -13,7 +13,7 @@
       print "Error!: " . $e->getMessage();
       die();
     }
-  $films = $db->query(" SELECT f.title, f.premiere, c.country, f.images, g.genre_name
+  $films = $db->query(" SELECT f.id, f.title, f.premiere, c.country, f.images, g.genre_name
                         FROM films AS f, dic_country AS c, dic_genre AS g
                         WHERE f.country_id = c.id AND f.genre_id = g.id");
 ?>

@@ -19,12 +19,12 @@
 </head>
 <body>
   <div class="container">
-    <form action="/" method="POST">
+    <form action="/" method="POST"  enctype="multipart/form-data">
       <div class="add_film">
         <div class="card mb-3" style="max-width: 840px;">
           <div class="row g-0">
             <div class="col-md-3">
-              <img class="film_img" max-width="280" src="img/Chernobyl.jpg" alt="Poster" name="film_img" id="film_img">
+              <img class="film_img" width="280" src="http://placehold.it/280x380" alt="Poster" name="film_img" id="film_img">
             </div>
             <div class="col-md-9">
               <div class="card-body">
@@ -63,5 +63,10 @@
       </div>
     </form>
   </div>
+  <script
+  src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+  integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
+  crossorigin="anonymous"></script>
+  <script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>

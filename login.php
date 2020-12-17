@@ -5,6 +5,13 @@
   <title>Авторизуйтесь пожалуйста</title>
 </head>
 <body>
+
+<div class="header">
+<h1>НАЗВАНИЕ</h1>
+
+<h3>ВВЕДИТЕ ДАННЫЕ ДЛЯ АВТОРИЗАЦИИ</h3>
+</div>
+
   <div class="container">
 	<form action="/" method="post">
 	  <div class="row mb-3">

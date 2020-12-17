@@ -7,12 +7,11 @@
   $params = ([
   		'id' => $_GET['film'],
   ]);
-  debug($_GET);
   $currentRecord = $db->prepare( 'SELECT f.id, f.title, f.premiere, c.country, f.images, g.genre_name
                         FROM films AS f, dic_country AS c, dic_genre AS g
-                        WHERE f.country_id = c.id AND f.genre_id = g.id' );
+                        WHERE f.country_id = c.id AND f.genre_id = g.id AND f.id = :id');
   $currentRecord->execute( $params );
-  debugx($currentRecord);
+  $currentRecordData = $currentRecord->fetch(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -28,22 +27,21 @@
 </head>
 <body>
   <div class="container">
-  <h1><?php debug($_POST);?></h1>
     <form action="/" method="POST"  enctype="multipart/form-data">
       <div class="add_film">
         <div class="card mb-3" style="max-width: 840px;">
           <div class="row g-0">
             <div class="col-md-3">
-              <img class="film_img" width="280" src="http://placehold.it/280x380" alt="Poster" name="film_img" id="film_img">
+              <img class="film_img" width="280" src="img/<?php echo($currentRecordData['images'])?>" alt="Poster" name="film_img" id="film_img">
             </div>
             <div class="col-md-9">
               <div class="card-body">
                 <label for="filmTitle" class="form-label">Название фильма:</label>
-                <input type="text" class="form-control" id="filmTitle" name="filmTitle" placeholder="Введите название фильма">
+                <input type="text" class="form-control" id="filmTitle" name="filmTitle" placeholder="Введите название фильма" value="<?php echo($currentRecordData['title'])?>">
                 <label for="filmCountry" class="form-label">Страна производства:</label>
                 <select class="form-select" id="filmCountry" name="filmCountry">
                   <?php while($row = $country->fetch(PDO::FETCH_ASSOC)){
-                    if ($row['id'] == 1) {?>
+                    if ($row['country'] == $currentRecordData['country']) {?>
                   <option value="<?php echo($row['id']); ?>" selected><?php echo($row['country']); ?></option>
                     <?php } else { ?>
                   <option value="<?php echo($row['id']); ?>"><?php echo($row['country']); ?></option>
@@ -51,11 +49,11 @@
                   <?php } // end while ?>
                 </select>
                 <label for="filmDate" class="form-label">Дата выхода</label>
-                <input type="date" class="form-control" id="filmTitle" name="filmDate" placeholder="Выберете дату выхода:">
+                <input type="date" class="form-control" id="filmTitle" name="filmDate" placeholder="Выберете дату выхода:" value="<?php echo($currentRecordData['premiere'])?>">
                 <label for="filmGenre" class="form-label">Выберите жанр:</label>
                 <select class="form-select" id="filmGenre" name="filmGenre">
                   <?php while($row = $genre->fetch(PDO::FETCH_ASSOC)){
-                      if ($row['id'] == 1) {?>
+                      if ($row['genre_name'] == $currentRecordData['genre_name']) {?>
                     <option value="<?php echo($row['id']); ?>" selected><?php echo($row['genre_name']); ?></option>
                       <?php } else { ?>
                     <option value="<?php echo($row['id']); ?>"><?php echo($row['genre_name']); ?></option>

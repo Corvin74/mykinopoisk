@@ -29,7 +29,6 @@
             
             case 'edit':
             	$redirect = "<meta http-equiv='refresh' content='0;URL=/edit_film.php?film=" . $_POST["filmID"] ."'>";
-            	debugx($redirect);
             	echo $redirect; 
                 $_SESSION['authorize'] = 1;
             break;

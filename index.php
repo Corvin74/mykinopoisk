@@ -54,6 +54,18 @@
       	checkUploadFile();
         addFilm($db, $prepareParams);
       }
+      if (isset($_POST['filmEdit'])) {
+      	$prepareParams = [
+            "id" => $_POST["filmID"],
+      			"title" => $_POST["filmTitle"],
+      			"premiere" => $_POST["filmDate"],
+      			"country_id" => $_POST["filmCountry"],
+      			"images" => $_FILES["filmPoster"]["name"],
+      			"genre_id" => $_POST["filmGenre"],
+        ];
+      	checkUploadFile();
+        editFilm($db, $prepareParams);
+      }
 	  if (!(empty($_POST)) AND ( isset($_POST['authorize']) OR isset($_POST['register']) ) ) {
 	  	if ( isset( $_POST['authorize'] ) ) {
         echo '<meta http-equiv="refresh" content="0;URL=/login.php">';

@@ -62,7 +62,8 @@
                 </select>
                 <label class="input-group-text" for="filmPoster">Загрузить постер:</label>
                 <input type="file" class="form-control" id="filmPoster" name="filmPoster">
-                <button type="submit" class="btn btn-success btn-films" name="filmAdd" value="Yes">Сохранить</button>
+                <input type="hidden" id="filmID" name="filmID" value="<?php echo $params['id'];?>">
+                <button type="submit" class="btn btn-success btn-films" name="filmEdit" value="Yes">Обновить</button>
                 <button type="submit" class="btn btn-secondary btn-films" name="filmDiscard" value="Discard">Отмена</button>
               </div>
             </div>

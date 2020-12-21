@@ -40,22 +40,39 @@
   }
 
   function addFilm($db, $params) {
-  	$addQuery = "	INSERT INTO films (title, premiere, country_id, images, genre_id)
-					VALUES (:title, :premiere, :country_id, :images, :genre_id)";
-  	$addResult = $db->prepare( $addQuery );
-  	$addResult->execute( $params );
-  	$queryResult = $addResult->rowCount();
-  	
-  	if($queryResult == 1) {
-  		//Если данные попали в базу, возвращается true
-  		return true;
-  	} else {
-  		//Если данные не попали в базу, возвращается false
-  		return false;
-  	}
-  }
-  
-  function checkUploadFile() {
+	$addQuery = "	INSERT INTO films (title, premiere, country_id, images, genre_id)
+				  VALUES (:title, :premiere, :country_id, :images, :genre_id)";
+	$addResult = $db->prepare( $addQuery );
+	$addResult->execute( $params );
+	$queryResult = $addResult->rowCount();
+	
+	if($queryResult == 1) {
+		//Если данные попали в базу, возвращается true
+		return true;
+	} else {
+		//Если данные не попали в базу, возвращается false
+		return false;
+	}
+}
+
+function editFilm($db, $params) {
+	$editQuery = "	UPDATE films SET title = :title, premiere = :premiere, country_id = :country_id, images = :images, genre_id = :genre_id)
+					WHERE	id = :id";
+	$editResult = $db->prepare( $editQuery );
+	$editResult->execute( $params );
+	
+	$queryResult = $editResult->rowCount();
+	debugx(queryResult);
+	if($queryResult == 1) {
+		//Если данные попали в базу, возвращается true
+		return true;
+	} else {
+		//Если данные не попали в базу, возвращается false
+		return false;
+	}
+}
+
+function checkUploadFile() {
   	$target_dir = "img/";
   	$target_file = $target_dir . basename($_FILES["filmPoster"]["name"]);
   	$uploadOk = 1;

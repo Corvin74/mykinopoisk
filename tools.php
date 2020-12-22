@@ -56,13 +56,26 @@
 }
 
 function editFilm($db, $params) {
-	$editQuery = "	UPDATE films SET title = :title, premiere = :premiere, country_id = :country_id, images = :images, genre_id = :genre_id)
+	$editQuery = "	UPDATE films SET title = :title, premiere = :premiere, country_id = :country_id, images = :images, genre_id = :genre_id
 					WHERE	id = :id";
 	$editResult = $db->prepare( $editQuery );
 	$editResult->execute( $params );
 	
 	$queryResult = $editResult->rowCount();
-	debugx(queryResult);
+	if($queryResult == 1) {
+		//Если данные попали в базу, возвращается true
+		return true;
+	} else {
+		//Если данные не попали в базу, возвращается false
+		return false;
+	}
+}
+
+function deleteFilm($db, $params) {
+	$deleteQuery = "DELETE FROM films WHERE	id = :id";
+	$deleteResult = $db->prepare( $deleteQuery );
+	$tmp = $deleteResult->execute( $params );
+	$queryResult = $deleteResult->rowCount();
 	if($queryResult == 1) {
 		//Если данные попали в базу, возвращается true
 		return true;

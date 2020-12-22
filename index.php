@@ -1,6 +1,7 @@
 <?php
   include("tools.php");
   include("db/db.php");
+  session_start();
 ?>
 
 <!DOCTYPE html>
@@ -18,6 +19,11 @@
 <body>
     <header class="container header">
         <h1>Мой кинопоиск</h1>
+        <?php if (isset($_SESSION['authorize'])){?>
+        <form method="post">
+          <button type="submit" class="btn btn-primary" name="action" value="add">Add</button>
+        </form>
+        <?php }; // endif?>
     </header>
     <?php
       if (isset($_POST['action'])) {
@@ -33,9 +39,21 @@
                 $_SESSION['authorize'] = 1;
             break;
             
-            case 'delete':
+            case 'print':
+            	$redirect = "<meta http-equiv='refresh' content='0;URL=/print_film.php?film=" . $_POST["filmID"] ."'>";
+            	echo $redirect; 
                 $_SESSION['authorize'] = 1;
-                echo('DELETE RECORD ID = ' . $_POST["filmID"]);
+            break;
+            
+            case 'delete':
+              $params = [
+                "id" => $_POST["filmID"],
+              ];
+              deleteFilm($db, $params);
+              $_SESSION['authorize'] = 1;
+            	$redirect = "<meta http-equiv='refresh' content='0;URL=/'>";
+            	echo $redirect; 
+              $_SESSION['authorize'] = 1;
             break;
                 
             default:
@@ -81,7 +99,7 @@
 			<div class="container">
 			<div class="loginButton">
 			  <form method="post">
-				<button type="submit" class="btn btn-info header-btn" name="register" value="yes">Регистрация</button>
+				<!-- <button type="submit" class="btn btn-info header-btn" name="register" value="yes">Регистрация</button> -->
 				<button type="submit" class="btn btn-success header-btn" name="authorize" value="yes">Авторизоваться</button>
 			  </form>
 			</div>
@@ -116,9 +134,10 @@
                 <p class="card-text">
                     <form method="post">
                     <input type="hidden" id="filmID" name="filmID" value="<?php echo $row['id'];?>">
-                    <button class="btn btn-primary" name="action" value="add">Add</button>
+                    <!-- <button type="submit" class="btn btn-primary" name="action" value="add">Add</button> -->
                     <button type="submit" class="btn btn-primary" name="action" value="edit">Edit</button>
-                    <button class="btn btn-primary" name="action" value="delete">Delete</button>
+                    <button type="submit" class="btn btn-primary" name="action" value="print">Print</button>
+                    <button type="submit" class="btn btn-primary" name="action" value="delete">Delete</button>
                     </form>
                 </p>
                 <?php }; // endif?>

@@ -2,8 +2,6 @@
   include("tools.php");
   include("db/db.php");
 
-  // $country = $db->query("SELECT id, country FROM dic_country");
-  // $genre = $db->query("SELECT id, genre_name FROM dic_genre");
   $params = ([
   		'id' => $_GET['film'],
   ]);
@@ -12,7 +10,7 @@
                         WHERE f.country_id = c.id AND f.genre_id = g.id AND f.id = :id');
   $currentRecord->execute( $params );
   $currentRecordData = $currentRecord->fetch(PDO::FETCH_ASSOC);
-  // debug($currentRecordData);
+  debug($params);
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -28,7 +26,6 @@
 </head>
 <body>
   <div class="container">
-    <!-- <form action="/" method="POST"  enctype="multipart/form-data"> -->
       <div class="add_film">
         <div class="card mb-3" style="max-width: 840px;">
           <div class="row g-0">
@@ -46,18 +43,12 @@
                 <?php echo($currentRecordData['description'])?>
                 </p>
                 <button class="btn btn-primary btn-films" onclick="this.style='display: none'; print();" name="action" value="print">Распечатать</button>
-                <button class="btn btn-secondary btn-films" name="filmDiscard" value="Discard">Отмена</button>
+                <button type="reset" class="btn btn-secondary btn-films" name="filmDiscard" value="Discard">Отмена</button>
               </div>
             </div>
           </div>
         </div>
       </div>
-    <!-- </form> -->
   </div>
-  <script
-  src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-  integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
-  crossorigin="anonymous"></script>
-  <script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>

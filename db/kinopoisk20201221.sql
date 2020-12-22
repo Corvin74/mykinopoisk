@@ -183,6 +183,7 @@ CREATE TABLE IF NOT EXISTS `films` (
   `premiere` date NOT NULL,
   `country_id` int UNSIGNED NOT NULL,
   `images` varchar(100) DEFAULT NULL,
+  `description` text,
   `genre_id` int UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   KEY `country` (`country_id`),
